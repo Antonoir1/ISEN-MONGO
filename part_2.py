@@ -42,6 +42,6 @@ if __name__ == "__main__":
     print("--------------\nInitialisation de la database ::::::::: OK\n")
     for i in range(0,10000):
         updateData()
-    
+
         print("---------------\nData updated :::::::: OK")
         sleep(600)
