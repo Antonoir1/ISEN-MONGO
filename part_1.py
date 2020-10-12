@@ -22,7 +22,10 @@ if __name__ == "__main__":
         try:
             tmp = {
                 'name': station['fields']['nom'],
-                'geolocalisation': station['geometry']['coordinates'],
+                'geolocalisation': {
+                    'type': 'Point',
+                    'coordinates': station['geometry']['coordinates']
+                },
                 'available': station['fields']['etat'] == 'EN SERVICE',
                 'size': station['fields']['nbplacesdispo'] + station['fields']['nbvelosdispo'],
                 'tpe': station['fields']['type'] == 'AVEC TPE'
@@ -40,7 +43,10 @@ if __name__ == "__main__":
         try:
             tmp = {
                 'name': station['fields']['name'],
-                'geolocalisation': station['geometry']['coordinates'],
+                'geolocalisation': {
+                    'type': 'Point',
+                    'coordinates': station['geometry']['coordinates']
+                },
                 'available': station['fields']['is_installed'] == 'OUI',
                 'size': station['fields']['capacity'],
                 'tpe': station['fields']['is_renting'] == 'OUI'
@@ -58,7 +64,10 @@ if __name__ == "__main__":
         try:
             tmp = {
                 'name': station['fields']['name'],
-                'geolocalisation': station['geometry']['coordinates'],
+                'geolocalisation': {
+                    'type': 'Point',
+                    'coordinates': station['geometry']['coordinates']
+                },
                 'available': station['fields']['status'] == 'OPEN',
                 'size': station['fields']['bike_stand'],
                 'tpe': station['fields']['banking'] == 't'
@@ -76,7 +85,10 @@ if __name__ == "__main__":
         try:
             tmp = {
                 'name': station['fields']['nom'],
-                'geolocalisation': station['geometry']['coordinates'],
+                'geolocalisation': {
+                    'type': 'Point',
+                    'coordinates': station['geometry']['coordinates']
+                },
                 'available': station['fields']['etat'] == 'En fonctionnement',
                 'size': station['fields']['nombreemplacementsactuels'] # TPE not found
             }
