@@ -1,5 +1,6 @@
 import requests
 import json
+from pymongo import MongoClient
 
 def getJson(url):
     response = requests.request("GET", url)
@@ -99,3 +100,10 @@ if __name__ == "__main__":
     # print(Rennes, "\n")
 
     print("Done fetching.")
+
+    client = MongoClient('mongodb://localhost:27017')
+    client.drop_database('veloville_database')
+    db = client.veloville_database
+
+    stations = db.lille_col
+    stations.insert_many(Lille)

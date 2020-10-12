@@ -40,7 +40,7 @@ if __name__ == "__main__":
         post_id = collection.insert_one(init_post).inserted_id
 
     print("--------------\nInitialisation de la database ::::::::: OK\n")
-    for i in range(0,10000):
+    while True:
         updateData()
 
         print("---------------\nData updated :::::::: OK")
