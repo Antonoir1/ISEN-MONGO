@@ -19,11 +19,8 @@ def getData(url):
 json_data = getData(url)
 
 db = client.veloville_database
-posts = db.posts
 
 collection = db.lille_col
-
-print(client.database_names())
 
 for data in json_data :
     init_post = {
@@ -37,7 +34,7 @@ for data in json_data :
       "TPE":data["fields"]["type"]
         } 
 
-    post_id = posts.insert_one(init_post).inserted_id
+    post_id = collection.insert_one(init_post).inserted_id
 
 
 
@@ -54,4 +51,4 @@ for i in range(0,10000):
     updateData()
 
     print("---------------\nData updated :::::::: OK")
-    sleep(600) 
+    sleep(600)
