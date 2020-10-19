@@ -16,7 +16,7 @@ if __name__ == "__main__":
     client.drop_database('veloville_database')
     db = client.veloville_database
     stations = db.lille_col
-    stations.create_index([('station_id', 1),('date', -1)], unique=True)
+    stations.create_index([('station_id', 1)], unique=True)
 
     url_Lille = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=3000&facet=libelle&facet=nom&facet=commune&facet=etat&facet=type&facet=etatconnexion"
 
@@ -28,7 +28,6 @@ if __name__ == "__main__":
                 tmp = {
                     'city': 'Lille',
                     'station_id': station['fields']['libelle'],
-                    'date': dateutil.parser.parse(station['fields']['datemiseajour']),
                     'name': station['fields']['nom'],
                     'geolocalisation': station['geometry'],
                     'available': station['fields']['etat'] == 'EN SERVICE',
@@ -40,7 +39,7 @@ if __name__ == "__main__":
                 print('Field value not found on entry:', station, "\n")
         
         try:
-            db.datas.insert_many(Lille, ordered=False)
+            db.datas.insert_many(Lille)
         except:
             pass
         print("DATABASE UPDATED")
