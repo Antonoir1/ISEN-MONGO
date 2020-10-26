@@ -4,22 +4,23 @@ from time import sleep
 from pymongo import MongoClient
 import dateutil.parser
 
+# Returns json file of a fetch request
 def getJson(url):
     response = requests.request("GET", url)
     response_json = json.loads(response.text.encode('utf8'))
     return response_json
 
-
-
+# Refresh the data on Lille bike stations
 if __name__ == "__main__":
+    # Connection to the database
     client = MongoClient('mongodb://localhost:27017')
-    client.drop_database('veloville_database')
-    db = client.veloville_database
-    stations = db.lille_col
+    db = client['lille']
+    stations = db['velo_stations']
     stations.create_index([('station_id', 1)], unique=True)
 
     url_Lille = "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime&q=&rows=3000&facet=libelle&facet=nom&facet=commune&facet=etat&facet=type&facet=etatconnexion"
 
+    # Refresh
     while True:
         json_Lille = getJson(url_Lille).get("records", [])
         Lille = []
@@ -39,7 +40,7 @@ if __name__ == "__main__":
                 print('Field value not found on entry:', station, "\n")
         
         try:
-            db.datas.insert_many(Lille)
+            stations.insert_many(Lille)
         except:
             pass
         print("DATABASE UPDATED")
